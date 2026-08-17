@@ -5,9 +5,30 @@
     "height": 24,
     "spacing": 2,
 
-    "modules-left": ["cpu", "custom/gpu", "memory", "temperature"],
+    "modules-left": ["hyprland/workspaces", "cpu", "custom/gpu", "memory", "temperature"],
     "modules-center": ["clock"],
-    "modules-right": ["mpris", "pulseaudio", "custom/power"],
+    "modules-right": ["mpris", "network", "bluetooth", "pulseaudio", "battery", "custom/notification", "custom/power"],
+
+    "hyprland/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10",
+            "urgent": "!",
+            "focused": "●",
+            "default": "○"
+        }
+    },
 
     "cpu": {
         "format": "CPU {usage}%",
@@ -21,14 +42,14 @@
     },
 
     "custom/gpu": {
-        "exec": "/home/rp34/.config/waybar/scripts/gpu_usage.sh",
+        "exec": "$HOME/.config/waybar/scripts/gpu_usage.sh",
         "interval": 2,
         "format": "GPU {}%",
-        "tooltip-format": "Skylake-H GT2: {}%"
+        "tooltip-format": "GPU: {}%"
     },
     
     "temperature": {
-        "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
+        "thermal-zone": 0,
         "critical-threshold": 80,
         "format": " {temperatureC}°C",
         "format-critical": " {temperatureC}°C",
@@ -45,14 +66,39 @@
     "mpris": {
         "format": "{title} - {artist}",
         "format-paused": "{title} - {artist}",
-        "max-length": 50,
+        "max-length": 35,
         "tooltip": false,
         "interval": 2
     },
 
+    "network": {
+        "format-wifi": "󰤨 {essid}",
+        "format-ethernet": "󰈀 Eth",
+        "format-linked": "󰈀 (No IP)",
+        "format-disconnected": "󰤭 Off",
+        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) 󰤨\nIP: {ipaddr}",
+        "tooltip-format-ethernet": "{ifname} 󰈀\nIP: {ipaddr}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "󰂯 {status}",
+        "format-disabled": "",
+        "format-off": "",
+        "format-on": "󰂯",
+        "format-connected": "󰂱 {device_alias}",
+        "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "blueman-manager"
+    },
+
     "pulseaudio": {
         "format": "{icon}  {volume}%",
-        "format-muted": "Muted",
+        "format-muted": "󰝟 Muted",
         "format-icons": {
             "default": ["", "", ""]
         },
@@ -61,9 +107,43 @@
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
 
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󱐋 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{timeTo}, {capacity}%"
+    },
+
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂚",
+            "dnd-notification": "󱅫",
+            "dnd-none": "󰂛",
+            "inhibited-notification": "󱅫",
+            "inhibited-none": "󰂚",
+            "dnd-inhibited-notification": "󱅫",
+            "dnd-inhibited-none": "󰂛"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+
     "custom/power": {
         "format": "⏻",
         "tooltip": false,
-        "on-click": "wlogout -b 1 -c 20 -r 20 -L 1700 -R 1700 -T 325 -B 325"
+        "on-click": "wlogout -b 5 -c 0 -r 0 -L 200 -R 200 -T 420 -B 420"
     }
 }

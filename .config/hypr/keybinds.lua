@@ -10,22 +10,36 @@ hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+
+-- Scratchpad Terminal (Super + grave `)
+hl.bind(mainMod .. " + grave", hl.dsp.focus({ workspace = "special:scratchpad" }))
+hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special:scratchpad" }))
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind("SUPER + Tab", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("wlogout -b 1 -c 20 -r 20 -L 1700 -R 1700 -T 325 -B 325"))
+hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("wlogout -b 5 -c 0 -r 0 -L 200 -R 200 -T 420 -B 420"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("quickshell -c hyprquickpaper"))
 
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = 0 }))
 
+-- Window Groups (Tabbed Windows)
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("hyprctl dispatch togglegroup"))
+hl.bind(mainMod .. " + ALT + H", hl.dsp.exec_cmd("hyprctl dispatch changegroupactive b"))
+hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("hyprctl dispatch changegroupactive f"))
+hl.bind(mainMod .. " + ALT + G", hl.dsp.exec_cmd("hyprctl dispatch lockactivegroup toggle"))
+
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/opacity.sh"))
+
 
 -- Toggle waybar
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("sh -c 'pgrep -x waybar >/dev/null && pkill waybar || nohup waybar >/dev/null 2>&1 &'"))
 
--- Screenshots
-hl.bind(mainMod .. " + Delete", hl.dsp.exec_cmd("grim " .. home .. "/Pictures/$(date +%s).png"))
-hl.bind("Delete", hl.dsp.exec_cmd('grim -g "$(slurp)" ' .. home .. '/Pictures/$(date +%s).png'))
+-- Screenshots (file + clipboard simultaneously)
+hl.bind(mainMod .. " + Delete", hl.dsp.exec_cmd("bash -c 'grim - | tee " .. home .. "/Pictures/$(date +%s).png | wl-copy'"))
+hl.bind("Print", hl.dsp.exec_cmd('bash -c \'geom="$(slurp)"; [ -n "$geom" ] && grim -g "$geom" - | tee ' .. home .. '/Pictures/$(date +%s).png | wl-copy\''))
+
+
 
 -- Clipboard
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(
@@ -90,15 +104,24 @@ hl.bind(mainMod .. " + CTRL + L", hl.dsp.window.resize({ x = 40, y = 0 }), { rep
 hl.bind(mainMod .. " + CTRL + K", hl.dsp.window.resize({ x = 0, y = -40 }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + J", hl.dsp.window.resize({ x = 0, y = 40 }), { repeating = true })
 
--- Workspaces 1-10, and move-to-workspace with SHIFT (confirmed pattern from
--- the official example config)
+-- Workspaces 1-10
+-- Uses keycodes 10-19 (&, é, ", ', (, -, è, _, ç, à) so switching works
+-- natively on French AZERTY without needing Shift!
 for i = 1, 10 do
-    local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    local keycode = 9 + i -- keycode 10 = '1/&', keycode 19 = '0/à'
+    local num = i % 10
+
+    -- AZERTY keycode binds
+    hl.bind(mainMod .. " + code:" .. keycode, hl.dsp.focus({ workspace = i }))
+    hl.bind(mainMod .. " + SHIFT + code:" .. keycode, hl.dsp.window.move({ workspace = i }))
+
+    -- Fallback standard number binds
+    hl.bind(mainMod .. " + " .. num, hl.dsp.focus({ workspace = i }))
+    hl.bind(mainMod .. " + SHIFT + " .. num, hl.dsp.window.move({ workspace = i }))
 end
 
--- Media keys (confirmed pattern from the official example config)
+
+-- Media keys
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
@@ -106,3 +129,12 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+
+-- Brightness keys
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 10%+"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 10%-"), { locked = true, repeating = true })
+
+-- Scroll through existing workspaces with mainMod + scroll
+hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+

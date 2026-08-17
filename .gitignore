@@ -1,0 +1,20 @@
+# Spicetify backups & extracted data
+.config/spicetify/Backups/
+.config/spicetify/Extracted/
+
+# Thumbnail cache
+.cache/
+
+# Personal Neofetch / Fastfetch images if any
+.config/neofetch/pfp.png
+
+# GTK bookmarks (personal paths)
+.config/gtk-3.0/bookmarks
+
+# OS & Editor generated files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/

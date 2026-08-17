@@ -15,83 +15,71 @@ Wallpapers: https://wallhaven.cc/user/43pr
 
 ## Features
 
-* Waybar
-> Change volume with mouse wheel, mute, play/pause and next
-* Rofi
-> App search, clipboard history and switch opacity
-* Hyprlock
-* Wlogout
-* Custom wallpaper selector
-* Custom scripts
-* Spotify + Spicetify. Theme: text darkthemer
-
-### Wallpaper Selector
-
-[hyprquickpaper](https://github.com/iamsurjog/hyprquickpaper)
-
-> check out the original source it explains how to setup I just made changes to it 
+* **Waybar**
+> Workspaces, hardware stats (CPU/GPU/RAM/Temp), network, bluetooth, battery, MPRIS media control, audio with mouse wheel, notifications, and power menu
+* **Bluetooth (Blueman)**
+> Integrated bluetooth management with tray applet and GUI manager
+* **Window Groups (Tabs)**
+> Group multiple windows into a single tabbed frame with colored headers (`Super + G`)
+* **SwayNC**
+> Modern control center with notifications, volume & brightness sliders, DND toggle, and media widget (`Super + N`)
+* **Rofi**
+> Fuzzy application search (`Super + D`), clipboard history (`Super + V`), and interactive window opacity switcher (`Super + O`)
+* **Hyprlock & Hypridle**
+> Screen lock with live clock, battery & media controls, and automatic sleep/dim power management
+* **Wlogout**
+> 5-button power menu (Lock, Suspend, Shutdown, Reboot, Logout)
+* **Quickshell (hyprquickpaper)**
+> Smooth animated horizontal wallpaper picker (`Super + W`) with Matugen/Pywal theme hooks
+* **Kitty Terminal + Starship Prompt**
+> Tokyo Night Moon theme with 85% opacity, blur, beam cursor with trail, Nerd fonts, and cross-shell prompt with git and battery indicators
+* **Spotify + Spicetify**
+> Themed Spotify interface with automated installer integration
 
 ### Most used keybinds
 
 > **$mod = Super / Windows key**
 
-| Keybind     | Action                    |
-| ----------- | ------------------------- |
-| `Super + T` | Open terminal             |
-| `Super + D` | Open application launcher |
-| `Super + E` | Open file manager         |
-| `Super + B` | Open browser              |
-| `Super + W` | Open wallpaper selector   |
-| `Super + O` | Switch opacity            |
-| `Super + V` | Open clipboard history    |
-```ini
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("quickshell -c hyprquickpaper"))
-```
-```ini
-hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/opacity.sh"))
-```
-```ini
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
-```
-**Window Management and more**
-| Keybind         | Action              |
-| --------------- | ------------------- |
-| `Super + Q`     | Close active window |
-| `Super + F`     | Toggle fullscreen   |
-| `Super + Space` | Toggle floating     |
-| `Super + Tab`   | Lock screen         |
-| `Super + Esc`   | Open logout menu    |
-```ini
-hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("wlogout -b 1 -c 20 -r 20 -L 1700 -R 1700 -T 325 -B 325"))
-```
-**Move/resize window with mouse**
-```ini
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-```
-```ini
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
-```
-**Toggle Waybar**
-```ini
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("sh -c 'pgrep -x waybar >/dev/null && pkill waybar || nohup waybar >/dev/null 2>&1 &'"))
-```
+| Keybind | Action |
+| --- | --- |
+| `Super + T` | Open terminal (Kitty) |
+| `Super + D` | Open application launcher (Rofi) |
+| `Super + E` | Open file manager (Thunar) |
+| `Super + B` | Open browser (Brave / Firefox) |
+| `Super + N` | Toggle Notification Center (SwayNC) |
+| `Super + \`` | Toggle Scratchpad Terminal |
+| `Super + W` | Open wallpaper selector (Quickshell) |
+| `Super + O` | Switch opacity dynamically |
+| `Super + V` | Open clipboard history |
+| `Print` | Area screenshot to file + clipboard |
+| `Super + Delete` | Fullscreen screenshot to file + clipboard |
+| `Super + Q` | Close active window |
+| `Super + F` | Toggle fullscreen |
+| `Super + Space` | Toggle floating & center (70% size) |
+| `Super + G` | Toggle tabbed window group |
+| `Super + Alt + H / L` | Navigate previous / next tab in group |
+| `Super + Tab` | Lock screen (Hyprlock) |
+| `Super + Esc` | Open logout menu (Wlogout) |
+| `Super + SHIFT + W` | Toggle Waybar visibility |
 
 ---
 
-### Installed Programs:
+### Installed Programs & Tools:
 
 ```text
 Hyprland
+Hyprlock & Hypridle
 Waybar
+SwayNC
 Rofi
-Hyprlock
 Wlogout
 Quickshell
-awww
-Grim
-Slurp
-Cliphist
-wl-clipboard
+Awww (Wallpaper daemon)
+Grim & Slurp
+Cliphist & Wl-clipboard
+PipeWire & WirePlumber
+Brightnessctl & Playerctl
+Kitty, Fastfetch & Starship Prompt
 ```
 
 ---

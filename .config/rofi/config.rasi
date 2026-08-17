@@ -11,7 +11,7 @@ configuration {
     show-icons: true;
     sidebar-mode: false;
     scroll-method: 1;
-    matching: "prefix";
+    matching: "fuzzy";
     sort: true;
     sorting-method: "normal";
     click-to-exit: true;
@@ -25,13 +25,13 @@ configuration {
 }
 
 * {
-    bg: #00000020;
+    bg: #0f0f1488;
     bg-alt: #00000000;
     bg-hover: #242832FF;
-    bg-selected: #FFFFFF10;
+    bg-selected: #7AA2F725;
     fg: #E6EAF2FF;
     fg-muted: #8B93A7FF;
-    fg-dark: #111318FF;
+    fg-dark: #FFFFFF;
     accent: #7AA2F7FF;
     accent-soft: #7AA2F733;
     urgent: #F7768EFF;

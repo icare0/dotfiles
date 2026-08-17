@@ -167,6 +167,23 @@ cp -a "$REPO_DIR/.config/." "$CONFIG_DIR/"
 success "Dotfiles installed."
 
 # --------------------------------------------------
+# Fix hardcoded paths
+# --------------------------------------------------
+# The original config contained /home/rp34 as an absolute path in several
+# files (JSON, CSS, INI, Lua) that cannot use shell variables at runtime.
+# Replace every occurrence with the real home directory of the installing user.
+
+info "Fixing hardcoded paths for user '$USER'..."
+
+while IFS= read -r -d '' file; do
+    if grep -qF "/home/rp34" "$file" 2>/dev/null; then
+        sed -i "s|/home/rp34|$HOME|g" "$file"
+    fi
+done < <(find "$CONFIG_DIR" -type f -print0)
+
+success "All paths configured for: $HOME"
+
+# --------------------------------------------------
 # Wallpapers
 # --------------------------------------------------
 
@@ -180,34 +197,112 @@ if [[ -d "$REPO_DIR/Wallpapers" ]]; then
 fi
 
 # --------------------------------------------------
-# Enable user audio services
+# Standard XDG User Directories
+# --------------------------------------------------
+
+info "Setting up XDG user directories..."
+
+if command -v xdg-user-dirs-update >/dev/null 2>&1; then
+    xdg-user-dirs-update
+fi
+
+mkdir -p "$HOME"/{Pictures,Documents,Downloads,Music,Videos}
+mkdir -p "$HOME/Pictures/Wallpapers"
+
+success "XDG directories configured."
+
+# --------------------------------------------------
+# Create required cache directories
+# --------------------------------------------------
+
+info "Creating cache directories..."
+
+mkdir -p "$HOME/.cache/quickshell/thumbs"
+
+success "Cache directories created."
+
+# --------------------------------------------------
+# Cleanup migration artifacts
+# --------------------------------------------------
+
+# Remove the empty "Hyprland 0.56.2" version marker file — it was
+# accidentally copied into the config directory and serves no purpose.
+rm -f "$CONFIG_DIR/hypr/Hyprland 0.56.2"
+
+# --------------------------------------------------
+# Enable user audio services & display manager
 # --------------------------------------------------
 
 if command -v systemctl >/dev/null 2>&1; then
-    info "Enabling PipeWire..."
+    info "Enabling user services (PipeWire)..."
 
     systemctl --user enable --now pipewire.service
     systemctl --user enable --now pipewire-pulse.service
     systemctl --user enable --now wireplumber.service
 
     success "PipeWire configured."
+
+    if command -v bluetoothctl >/dev/null 2>&1; then
+        info "Enabling Bluetooth service..."
+        sudo systemctl enable --now bluetooth.service 2>/dev/null || true
+        success "Bluetooth service enabled."
+    fi
+
+    if command -v sddm >/dev/null 2>&1; then
+        info "Enabling SDDM display manager..."
+        sudo systemctl enable sddm.service 2>/dev/null || true
+        success "SDDM service enabled."
+    fi
+
 else
-    warning "systemctl was not found; skipping PipeWire service setup."
+    warning "systemctl was not found; skipping service setup."
 fi
 
 # --------------------------------------------------
 # Permissions
 # --------------------------------------------------
 
-info "Setting executable permissions on scripts..."
+info "Setting executable permissions on all scripts..."
 
-if [[ -d "$CONFIG_DIR/hypr/scripts" ]]; then
-    find "$CONFIG_DIR/hypr/scripts" \
-        -type f \
-        -exec chmod +x {} \;
-fi
+for script_dir in "$CONFIG_DIR/hypr/scripts" "$CONFIG_DIR/waybar/scripts" "$CONFIG_DIR/quickshell/hyprquickpaper"; do
+    if [[ -d "$script_dir" ]]; then
+        find "$script_dir" -type f -name "*.sh" -exec chmod +x {} \;
+    fi
+done
 
 success "Permissions configured."
+
+# --------------------------------------------------
+# Spicetify Post-Install (if installed)
+# --------------------------------------------------
+
+if command -v spicetify >/dev/null 2>&1; then
+    info "Configuring Spicetify theme..."
+    spicetify backup apply 2>/dev/null || spicetify apply 2>/dev/null || true
+    success "Spicetify configured."
+fi
+
+# --------------------------------------------------
+# Starship Shell Integration
+# --------------------------------------------------
+
+info "Configuring Starship prompt in shell rc files..."
+
+if [[ -f "$HOME/.bashrc" ]]; then
+    if ! grep -q "starship init bash" "$HOME/.bashrc"; then
+        printf '\n# Starship Prompt\neval "$(starship init bash)"\n' >> "$HOME/.bashrc"
+    fi
+fi
+
+if [[ -f "$HOME/.zshrc" ]]; then
+    if ! grep -q "starship init zsh" "$HOME/.zshrc"; then
+        printf '\n# Starship Prompt\neval "$(starship init zsh)"\n' >> "$HOME/.zshrc"
+    fi
+fi
+
+success "Starship prompt configured."
+
+
 
 # --------------------------------------------------
 # Finish

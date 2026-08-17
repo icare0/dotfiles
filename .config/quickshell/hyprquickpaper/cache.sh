@@ -14,6 +14,13 @@ mkdir -p "$cache_path"
 echo "Wallpaper path: $wallpaper_path"
 echo "Cache path: $cache_path"
 
+[[ -d "$wallpaper_path" ]] || exit 0
+
+CONVERT_CMD="convert"
+if command -v magick >/dev/null 2>&1; then
+    CONVERT_CMD="magick"
+fi
+
 find "$wallpaper_path" -type f \( \
     -iname "*.jpg" -o \
     -iname "*.jpeg" -o \
@@ -29,8 +36,7 @@ find "$wallpaper_path" -type f \( \
 
     echo "Generating thumbnail for $filename"
 
-
-    convert "$img" -thumbnail x500 -strip -quality 85 "$out" &
+    $CONVERT_CMD "$img" -thumbnail x500 -strip -quality 85 "$out" &
 
     # Only limit jobs if batch_size > 0
     if (( cache_batch_size > 0 )); then

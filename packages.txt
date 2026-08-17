@@ -6,13 +6,17 @@
 # --------------------------------------------------
 
 hyprland
+hyprlock
+hypridle
 waybar
 rofi
-hyprlock
 wlogout
 quickshell
 xdg-desktop-portal-hyprland
 xorg-xwayland
+swaync
+network-manager-applet
+polkit-kde-agent
 
 # --------------------------------------------------
 # Wallpaper / screenshots
@@ -30,12 +34,18 @@ cliphist
 wl-clipboard
 
 # --------------------------------------------------
-# Audio
+# Audio / Hardware Control / Bluetooth
 # --------------------------------------------------
 
 pipewire
 pipewire-pulse
 wireplumber
+playerctl
+pavucontrol
+brightnessctl
+bluez
+bluez-utils
+blueman
 
 # --------------------------------------------------
 # Terminal / applications
@@ -44,6 +54,11 @@ wireplumber
 kitty
 firefox
 thunar
+brave-browser
+spotify
+spicetify-cli
+fastfetch
+starship
 
 # --------------------------------------------------
 # Fonts
@@ -51,6 +66,8 @@ thunar
 
 ttf-jetbrains-mono-nerd
 ttf-font-awesome
+ttf-cascadia-code-nerd
+ttf-iosevka-nerd
 
 # --------------------------------------------------
 # Utilities
@@ -59,5 +76,9 @@ ttf-font-awesome
 git
 curl
 unzip
+jq
+imagemagick
+nvtop
+xdg-user-dirs
 
 

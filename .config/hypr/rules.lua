@@ -13,12 +13,37 @@
 
 local window_opacity = 0.7
 
--- Layer rules (old: layerrule = blur on / ignore_alpha 0.15, match:namespace rofi)
+-- Layer rules
 hl.layer_rule({
     match = { namespace = "rofi" },
     blur = true,
     ignore_alpha = 0.15,
 })
+
+hl.layer_rule({
+    match = { namespace = "waybar" },
+    blur = true,
+    ignore_alpha = 0.2,
+})
+
+hl.layer_rule({
+    match = { namespace = "swaync-control-center" },
+    blur = true,
+    ignore_alpha = 0.15,
+})
+
+hl.layer_rule({
+    match = { namespace = "swaync-notification-window" },
+    blur = true,
+    ignore_alpha = 0.15,
+})
+
+hl.layer_rule({
+    match = { namespace = "wlogout" },
+    blur = true,
+    ignore_alpha = 0.2,
+})
+
 
 -- Opacity rule for your regular apps
 hl.window_rule({
