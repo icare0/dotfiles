@@ -52,12 +52,6 @@ hl.config({
     },
 })
 
-hl.config({
-    gestures = {
-        workspace_swipe = true,
-    },
-})
-
 
 ---- LOOK AND FEEL ----
 
@@ -66,7 +60,7 @@ hl.config({
         gaps_in = 3,
         gaps_out = 6,
         border_size = 2,
-        ["col.active_border"] = "rgba(7aa2f7ee) rgba(bb9af7ee) 45deg",
+        ["col.active_border"] = "rgba(7aa2f7ee)",
         ["col.inactive_border"] = "rgba(41486833)",
         resize_on_border = true,
         allow_tearing = false,
@@ -94,8 +88,6 @@ hl.config({
     },
     animations = {
         enabled = true,
-        animate_manual_resizes = true,
-        animate_mouse_windowdragging = true,
     },
 })
 
