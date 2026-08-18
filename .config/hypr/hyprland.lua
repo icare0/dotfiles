@@ -50,10 +50,11 @@ hl.config({
             clickfinger_behavior = true,
         },
     },
+})
+
+hl.config({
     gestures = {
         workspace_swipe = true,
-        workspace_swipe_fingers = 3,
-        workspace_swipe_distance = 300,
     },
 })
 
@@ -65,8 +66,8 @@ hl.config({
         gaps_in = 3,
         gaps_out = 6,
         border_size = 2,
-        col_active_border = "rgba(7aa2f7ee) rgba(bb9af7ee) 45deg",
-        col_inactive_border = "rgba(41486833)",
+        ["col.active_border"] = "rgba(7aa2f7ee) rgba(bb9af7ee) 45deg",
+        ["col.inactive_border"] = "rgba(41486833)",
         resize_on_border = true,
         allow_tearing = false,
         layout = "dwindle",
@@ -126,19 +127,20 @@ hl.config({
 -- GROUPS (Tabbed windows)
 hl.config({
     group = {
-        col_border_active = "rgba(7aa2f7ee)",
-        col_border_inactive = "rgba(41486844)",
+        ["col.border_active"] = "rgba(7aa2f7ee)",
+        ["col.border_inactive"] = "rgba(41486844)",
         groupbar = {
             enabled = true,
             font_family = "JetBrainsMono Nerd Font",
             font_size = 10,
             text_color = "rgba(ffffffff)",
-            col_active = "rgba(7aa2f7cc)",
-            col_inactive = "rgba(15161ecc)",
+            ["col.active"] = "rgba(7aa2f7cc)",
+            ["col.inactive"] = "rgba(15161ecc)",
             gradients = true,
         },
     },
 })
+
 
 
 -- MISC
