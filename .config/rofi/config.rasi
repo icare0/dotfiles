@@ -25,17 +25,14 @@ configuration {
 }
 
 * {
-    bg: #0f0f14dd;
-    bg-alt: #1a1b2688;
-    bg-hover: #24283b88;
-    bg-selected: #7AA2F733;
-    fg: #c0caf5;
-    fg-muted: #565f89;
+    bg: #1a202cee;
+    bg-alt: transparent;
+    bg-selected: rgba(255, 255, 255, 0.09);
+    fg: #e2e8f0;
+    fg-muted: #718096;
     fg-dark: #ffffff;
-    accent: #7AA2F7;
-    accent-soft: #7AA2F733;
-    urgent: #F7768E;
-    border-color: #7AA2F755;
+    accent: #a0aec0;
+    urgent: #f56565;
 
     background-color: transparent;
     text-color: @fg;
@@ -46,13 +43,12 @@ configuration {
 
 window {
     location: center;
-    width: 420px;
-    height: 420px;
+    width: 360px;
+    height: 380px;
     background-color: @bg;
-    border: 2px;
-    border-color: @border-color;
-    border-radius: 18px;
-    padding: 10;
+    border: 0px;
+    border-radius: 16px;
+    padding: 16px 18px;
 }
 
 mainbox {
@@ -62,29 +58,18 @@ mainbox {
 }
 
 inputbar {
-    background-color: @bg-alt;
-    border: 1px;
-    border-color: @border-color;
-    border-radius: 12px;
-    padding: 5px 15px;
-    spacing: 12px;
-    children: [prompt, entry];
-}
-
-prompt {
-    enabled: true;
     background-color: transparent;
-    text-color: @accent;
-    font: "Iosevka Nerd Font 16";
-    padding: 0;
-    vertical-align: 0.5;
+    border: 0px;
+    padding: 4px 10px 8px 10px;
+    spacing: 8px;
+    children: [entry];
 }
 
 entry {
     background-color: transparent;
     text-color: @fg;
-    font: "Iosevka 14";
-    placeholder: "";
+    font: "JetBrainsMono Nerd Font 13";
+    placeholder: " |";
     placeholder-color: @fg-muted;
     padding: 0;
     vertical-align: 0.5;
@@ -94,9 +79,9 @@ entry {
 listview {
     background-color: transparent;
     border: 0;
-    spacing: 6px;
+    spacing: 4px;
     padding: 4px 0;
-    lines: 8;
+    lines: 7;
     columns: 1;
     fixed-height: true;
     scrollbar: false;
@@ -105,13 +90,13 @@ listview {
 element {
     background-color: transparent;
     border: 0;
-    border-radius: 10px;
-    padding: 10px 14px;
-    spacing: 14px;
+    border-radius: 12px;
+    padding: 8px 14px;
+    spacing: 12px;
 }
 
 element-icon {
-    size: 28px;
+    size: 24px;
     background-color: transparent;
     vertical-align: 0.5;
 }
@@ -120,7 +105,7 @@ element-text {
     background-color: transparent;
     text-color: inherit;
     vertical-align: 0.5;
-    font: "Iosevka 11";
+    font: "JetBrainsMono Nerd Font 11";
 }
 
 element normal.normal,
@@ -132,13 +117,7 @@ element alternate.normal {
 element normal.active,
 element alternate.active {
     background-color: transparent;
-    text-color: @accent;
-}
-
-element normal.urgent,
-element alternate.urgent {
-    background-color: transparent;
-    text-color: @urgent;
+    text-color: @fg;
 }
 
 element selected.normal,
@@ -146,6 +125,7 @@ element selected.active {
     background-color: @bg-selected;
     text-color: @fg-dark;
 }
+
 
 element selected.urgent {
     background-color: @urgent;
