@@ -93,12 +93,16 @@ if command -v paru >/dev/null 2>&1; then
     PACKAGE_MANAGER="paru"
 elif command -v yay >/dev/null 2>&1; then
     PACKAGE_MANAGER="yay"
-elif command -v pacman >/dev/null 2>&1; then
-    PACKAGE_MANAGER="pacman"
 else
-    error "No supported package manager found."
-    error "Install pacman, paru, or yay before running this installer."
-    exit 1
+    info "No AUR helper detected. Installing yay automatically..."
+    sudo pacman -S --needed --noconfirm base-devel git
+
+    TMP_YAY=$(mktemp -d)
+    git clone https://aur.archlinux.org/yay.git "$TMP_YAY"
+    (cd "$TMP_YAY" && makepkg -si --noconfirm)
+    rm -rf "$TMP_YAY"
+
+    PACKAGE_MANAGER="yay"
 fi
 
 info "Detected distribution: ${PRETTY_NAME:-unknown}"
