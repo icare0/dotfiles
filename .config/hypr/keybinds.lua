@@ -19,7 +19,8 @@ hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind("SUPER + Tab", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("wlogout -b 5 -c 0 -r 0 -L 200 -R 200 -T 420 -B 420"))
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("quickshell -c hyprquickpaper"))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("bash -c 'pgrep -x quickshell >/dev/null && pkill quickshell || quickshell -c hyprquickpaper'"))
+
 
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = 0 }))
 
