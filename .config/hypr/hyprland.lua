@@ -103,7 +103,8 @@ hl.animation({ leaf = "windowsOut",       enabled = true, speed = 5, bezier = "f
 hl.animation({ leaf = "border",           enabled = true, speed = 4, bezier = "default" })
 hl.animation({ leaf = "fade",             enabled = true, speed = 4, bezier = "default" })
 hl.animation({ leaf = "workspaces",       enabled = true, speed = 5, bezier = "fluid",      style = "slide" })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5, bezier = "fluid",      style = "scale 85%" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5, bezier = "fluid",      style = "slidevert" })
+
 
 -- LAYOUT
 hl.config({
