@@ -227,9 +227,13 @@ PanelWindow {
             const big = configs.number_of_pictures
 
             switch (event.key) {
+            case Qt.Key_Right:
+            case Qt.Key_L:
             case Qt.Key_J:
                 moveSelection(1, 1)
                 break
+            case Qt.Key_Left:
+            case Qt.Key_H:
             case Qt.Key_K:
                 moveSelection(-1, 1)
                 break
