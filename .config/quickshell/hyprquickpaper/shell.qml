@@ -47,9 +47,9 @@ PanelWindow {
 
     FolderListModel {
         id: folderModel
-        folder: "file://" + configs.wallpaper_path
+        folder: "file://" + (configs.wallpaper_path ? configs.wallpaper_path.replace("/home/rp34", Quickshell.env("HOME")).replace("$HOME", Quickshell.env("HOME")) : (Quickshell.env("HOME") + "/Pictures/Wallpapers/"))
         showDirs: false
-        nameFilters: ["*.png", "*.jpg"]
+        nameFilters: ["*.png", "*.jpg", "*.jpeg"]
         sortField: FolderListModel.Name
     }
 
@@ -165,7 +165,7 @@ PanelWindow {
                     cache: false
                     smooth: true
 
-                    source: "file://" + configs.cache_path + fileName
+                    source: "file://" + (configs.cache_path ? configs.cache_path.replace("/home/rp34", Quickshell.env("HOME")).replace("$HOME", Quickshell.env("HOME")) : (Quickshell.env("HOME") + "/.cache/quickshell/thumbs/")) + fileName
 
                     // Decode once at the largest size this image will ever be shown at
                     // (the active/zoomed size), rather than tracking the animating

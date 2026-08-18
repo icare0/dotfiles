@@ -9,6 +9,11 @@ wallpaper_path=$(jq -r '.wallpaper_path' "$CONFIG")
 cache_path=$(jq -r '.cache_path' "$CONFIG")
 cache_batch_size=$(jq -r '.cache_batch_size' "$CONFIG")
 
+wallpaper_path="${wallpaper_path//\/home\/rp34/$HOME}"
+wallpaper_path="${wallpaper_path//\$HOME/$HOME}"
+cache_path="${cache_path//\/home\/rp34/$HOME}"
+cache_path="${cache_path//\$HOME/$HOME}"
+
 mkdir -p "$cache_path"
 
 echo "Wallpaper path: $wallpaper_path"
