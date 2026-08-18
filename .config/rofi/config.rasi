@@ -25,13 +25,13 @@ configuration {
 }
 
 * {
-    bg: #1a202cee;
+    bg: rgba(28, 34, 43, 0.72);
     bg-alt: transparent;
-    bg-selected: rgba(255, 255, 255, 0.09);
+    bg-selected: rgba(255, 255, 255, 0.10);
     fg: #e2e8f0;
-    fg-muted: #718096;
+    fg-muted: #8a99ad;
     fg-dark: #ffffff;
-    accent: #a0aec0;
+    accent: #cbd5e1;
     urgent: #f56565;
 
     background-color: transparent;
