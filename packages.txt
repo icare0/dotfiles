@@ -61,13 +61,14 @@ fastfetch
 starship
 
 # --------------------------------------------------
-# Fonts
+# Fonts & Appearance
 # --------------------------------------------------
 
 ttf-jetbrains-mono-nerd
 ttf-font-awesome
 ttf-cascadia-code-nerd
 ttf-iosevka-nerd
+bibata-cursor-theme
 
 # --------------------------------------------------
 # Utilities

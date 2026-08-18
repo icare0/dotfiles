@@ -4,7 +4,7 @@ configuration {
     combi-modes: "window,run,drun";
     drun-display-format: "{name}";
     window-format: "{t:45}  ·  {c}";
-    font: "Iosevka 13";
+    font: "JetBrainsMono Nerd Font 12";
 
     location: 0;
     fixed-num-lines: true;
@@ -19,23 +19,23 @@ configuration {
 
     display-run: "";
     display-window: "󰖯";
-    display-drun: "";
+    display-drun: "";
     display-combi: "󰘔";
     display-ssh: "";
 }
 
 * {
-    bg: #0f0f1488;
-    bg-alt: #00000000;
-    bg-hover: #242832FF;
-    bg-selected: #7AA2F725;
-    fg: #E6EAF2FF;
-    fg-muted: #8B93A7FF;
-    fg-dark: #FFFFFF;
-    accent: #7AA2F7FF;
+    bg: #0f0f14dd;
+    bg-alt: #1a1b2688;
+    bg-hover: #24283b88;
+    bg-selected: #7AA2F733;
+    fg: #c0caf5;
+    fg-muted: #565f89;
+    fg-dark: #ffffff;
+    accent: #7AA2F7;
     accent-soft: #7AA2F733;
-    urgent: #F7768EFF;
-    border-color: #FFFFFF00;
+    urgent: #F7768E;
+    border-color: #7AA2F755;
 
     background-color: transparent;
     text-color: @fg;

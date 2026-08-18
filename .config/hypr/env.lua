@@ -2,8 +2,11 @@
 -- Environment variables for Wayland, Toolkit, and XDG
 
 -- Cursor
-hl.env("XCURSOR_SIZE", "18")
-hl.env("HYPRCURSOR_SIZE", "18")
+hl.env("XCURSOR_THEME", "Bibata-Modern-Classic")
+hl.env("XCURSOR_SIZE", "20")
+hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Classic")
+hl.env("HYPRCURSOR_SIZE", "20")
+
 
 -- Wayland Toolkit variables
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")

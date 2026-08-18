@@ -66,45 +66,58 @@ hl.config({
         gaps_out = 6,
         border_size = 2,
         col_active_border = "rgba(7aa2f7ee) rgba(bb9af7ee) 45deg",
-        col_inactive_border = "rgba(41486844)",
+        col_inactive_border = "rgba(41486833)",
         resize_on_border = true,
         allow_tearing = false,
         layout = "dwindle",
     },
     decoration = {
-        rounding = 8,
+        rounding = 10,
         blur = {
             enabled = true,
             size = 6,
             passes = 2,
-            vibrancy = 0.2,
+            vibrancy = 0.25,
+            new_optimizations = true,
         },
         shadow = {
             enabled = true,
-            range = 12,
-            render_power = 3,
+            range = 25,
+            render_power = 4,
+            color = "rgba(00000055)",
+            color_inactive = "rgba(00000025)",
         },
+        dim_inactive = true,
+        dim_strength = 0.12,
+        dim_special = 0.3,
     },
     animations = {
         enabled = true,
+        animate_manual_resizes = true,
+        animate_mouse_windowdragging = true,
     },
 })
 
 -- Animation curves
+hl.curve("fluid",       { type = "bezier", points = { {0.25, 1.0}, {0.5, 1.0} } })
 hl.curve("easeOut",     { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.0} } })
 hl.curve("easeOutBack", { type = "bezier", points = { {0.34, 1.3}, {0.64, 1.0} } })
 hl.curve("easeOutExpo", { type = "bezier", points = { {0.16, 1.0}, {0.3, 1.0} } })
 
 -- Smooth Animations
-hl.animation({ leaf = "windows",    enabled = true, speed = 5, bezier = "easeOutBack", style = "popin 85%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 4, bezier = "easeOut",     style = "popin 85%" })
-hl.animation({ leaf = "border",     enabled = true, speed = 4, bezier = "default" })
-hl.animation({ leaf = "fade",       enabled = true, speed = 4, bezier = "default" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 5, bezier = "easeOutExpo", style = "slide" })
+hl.animation({ leaf = "windows",          enabled = true, speed = 6, bezier = "fluid",      style = "popin 80%" })
+hl.animation({ leaf = "windowsOut",       enabled = true, speed = 5, bezier = "fluid",      style = "popin 80%" })
+hl.animation({ leaf = "border",           enabled = true, speed = 4, bezier = "default" })
+hl.animation({ leaf = "fade",             enabled = true, speed = 4, bezier = "default" })
+hl.animation({ leaf = "workspaces",       enabled = true, speed = 5, bezier = "fluid",      style = "slide" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5, bezier = "fluid",      style = "scale 85%" })
 
 -- LAYOUT
 hl.config({
-    dwindle = { preserve_split = true },
+    dwindle = {
+        preserve_split = true,
+        special_scale_factor = 0.85,
+    },
 })
 hl.config({
     master = { new_status = "master" },
@@ -133,6 +146,7 @@ hl.config({
     misc = {
         disable_hyprland_logo = true,
         disable_splash_rendering = true,
+        vrr = 1,
     },
 })
 

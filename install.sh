@@ -283,24 +283,42 @@ if command -v spicetify >/dev/null 2>&1; then
 fi
 
 # --------------------------------------------------
-# Starship Shell Integration
+# Starship & Shell Aliases Integration
 # --------------------------------------------------
 
-info "Configuring Starship prompt in shell rc files..."
+info "Configuring Starship prompt and aliases in shell rc files..."
+
+ALIASES_BLOCK='
+# --------------------------------------------------
+# Useful Aliases
+# --------------------------------------------------
+alias up="paru -Syu || yay -Syu || sudo pacman -Syu"
+alias clean="sudo pacman -Rns \$(pacman -Qdtq 2>/dev/null) 2>/dev/null; sudo pacman -Sc --noconfirm"
+alias ff="fastfetch"
+alias ..="cd .."
+alias ...="cd ../.."
+alias la="ls -la --color=auto"
+
+# Starship Prompt
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init bash)"
+fi
+'
 
 if [[ -f "$HOME/.bashrc" ]]; then
-    if ! grep -q "starship init bash" "$HOME/.bashrc"; then
-        printf '\n# Starship Prompt\neval "$(starship init bash)"\n' >> "$HOME/.bashrc"
+    if ! grep -q "alias up=" "$HOME/.bashrc"; then
+        printf '%s\n' "$ALIASES_BLOCK" >> "$HOME/.bashrc"
     fi
 fi
 
 if [[ -f "$HOME/.zshrc" ]]; then
-    if ! grep -q "starship init zsh" "$HOME/.zshrc"; then
-        printf '\n# Starship Prompt\neval "$(starship init zsh)"\n' >> "$HOME/.zshrc"
+    if ! grep -q "alias up=" "$HOME/.zshrc"; then
+        printf '%s\n' "${ALIASES_BLOCK/init bash/init zsh}" >> "$HOME/.zshrc"
     fi
 fi
 
-success "Starship prompt configured."
+success "Shell environment & aliases configured."
+
 
 
 

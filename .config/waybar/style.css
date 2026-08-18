@@ -1,38 +1,45 @@
 /* General */
 * {
     font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono", monospace;
-    font-size: 11px;
+    font-size: 11.5px;
+    font-weight: 500;
     min-height: 0;
 }
 
 window#waybar {
     min-height: 10px;
-    background-color: rgba(20, 20, 20, 0);
-    color: #ffffff;
+    background-color: transparent;
+    color: #c0caf5;
 }
 
 /* LEFT */
 .modules-left {
-    background-color: rgba(20, 20, 20, 0.3);
-    border-radius: 10px;
-    margin: 3px 0 3px 6px;
+    background-color: rgba(15, 15, 20, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    margin: 4px 0 4px 6px;
+    padding: 0 4px;
 }
 
 /* CENTER */
 .modules-center {
-    background-color: rgba(20, 20, 20, 0.3);
-    border-radius: 10px;
-    margin: 3px 0;
+    background-color: rgba(15, 15, 20, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    margin: 4px 0;
+    padding: 0 6px;
 }
 
 /* RIGHT */
 .modules-right {
-    background-color: rgba(20, 20, 20, 0.3);
-    border-radius: 10px;
-    margin: 3px 6px 3px 0;
+    background-color: rgba(15, 15, 20, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    margin: 4px 6px 4px 0;
+    padding: 0 4px;
 }
 
-/* Module spacing */
+/* Module spacing & smooth hover */
 #workspaces,
 #cpu,
 #memory,
@@ -46,116 +53,10 @@ window#waybar {
 #custom-notification,
 #custom-power,
 #temperature {
-    padding: 0 10px;
-    margin: 0 2px;
-}
-
-/* Workspaces */
-#workspaces button {
-    padding: 0 6px;
-    color: #8B93A7;
-    background-color: transparent;
+    padding: 0 8px;
+    margin: 2px 2px;
     border-radius: 8px;
-    transition: all 0.2s ease;
-}
-
-#workspaces button.focused,
-#workspaces button.active {
-    color: #7AA2F7;
-    background-color: rgba(255, 255, 255, 0.1);
-    font-weight: bold;
-}
-
-#workspaces button.urgent {
-    color: #F7768E;
-    background-color: rgba(247, 118, 142, 0.2);
-}
-
-#workspaces button:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-/* Network & Battery */
-#network.disconnected {
-    color: #F7768E;
-}
-
-#battery.charging {
-    color: #9ECE6A;
-}
-
-#battery.warning:not(.charging) {
-    color: #E0AF68;
-}
-
-#battery.critical:not(.charging) {
-    color: #F7768E;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-/* Power & Notifications */
-#custom-notification {
-    font-size: 14px;
-    color: #7AA2F7;
-}
-
-#custom-power {
-    color: #ffffff;
-    font-size: 15px;
-    margin-right: 10px;
-}
-
-/* MPRIS */
-#mpris {
-    min-width: 0;
-}
-
-/* Clock */
-#clock {
-    font-weight: bold;
-}
-
-/* Temperature */
-#temperature.critical {
-    color: #ff5555;
-}
-
-/* Tooltip */
-tooltip {
-    background-color: rgba(20, 20, 20, 0.7);
-    color: #ffffff;
-    font-weight: bold;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 8px;
-}
-
-tooltip label {
-    color: #ffffff;
-    font-size: 11px;
-    padding: 0;
-    margin: 0;
-}
-
-/* Interactive hover effect */
-#cpu,
-#memory,
-#custom-gpu,
-#temperature,
-#clock,
-#network,
-#bluetooth,
-#pulseaudio,
-#battery,
-#mpris,
-#custom-notification,
-#custom-power {
-    transition: font-size 0.15s ease;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 #cpu:hover,
@@ -170,6 +71,99 @@ tooltip label {
 #mpris:hover,
 #custom-notification:hover,
 #custom-power:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+/* Workspaces */
+#workspaces button {
+    padding: 0 6px;
+    color: #565f89;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: #7aa2f7;
+    background-color: rgba(122, 162, 247, 0.15);
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    color: #f7768e;
+    background-color: rgba(247, 118, 142, 0.2);
+}
+
+#workspaces button:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Network & Battery */
+#network.disconnected {
+    color: #f7768e;
+}
+
+#battery.charging {
+    color: #9ece6a;
+}
+
+#battery.warning:not(.charging) {
+    color: #e0af68;
+}
+
+#battery.critical:not(.charging) {
+    color: #f7768e;
+    animation-name: blink;
+    animation-duration: 0.8s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Power & Notifications */
+#custom-notification {
+    font-size: 13px;
+    color: #7aa2f7;
+}
+
+#custom-power {
+    color: #f7768e;
     font-size: 13px;
 }
 
+/* MPRIS */
+#mpris {
+    min-width: 0;
+    color: #bb9af7;
+}
+
+/* Clock */
+#clock {
+    font-weight: bold;
+    color: #c0caf5;
+}
+
+/* Temperature */
+#temperature.critical {
+    color: #f7768e;
+}
+
+/* Tooltip */
+tooltip {
+    background-color: rgba(15, 15, 20, 0.85);
+    color: #c0caf5;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 8px;
+}
+
+tooltip label {
+    color: #c0caf5;
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+}
