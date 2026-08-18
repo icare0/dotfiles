@@ -32,7 +32,9 @@ configuration {
     fg-muted: #8a99ad;
     fg-dark: #ffffff;
     accent: #cbd5e1;
+    accent-soft: rgba(255, 255, 255, 0.08);
     urgent: #f56565;
+    border-color: transparent;
 
     background-color: transparent;
     text-color: @fg;
