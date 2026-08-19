@@ -3,8 +3,7 @@
 # Visual Cheatsheet for Hyprland & Keybindings
 categories=(
     "🚀 [Super + T]          Terminal Kitty (Fastfetch & Starship)"
-    "🔍 [Super + Espace]     Spotlight macOS (Lanceur d'apps)"
-    "🔍 [Super + D]          Lanceur d'applications alternatif"
+    "🔍 [Super + D]          Lanceur d'applications (Rofi)"
     "🌐 [Super + B]          Navigateur Web (Brave / Zen)"
     "📁 [Super + E]          Explorateur de fichiers (Thunar)"
     "🖼️  [Super + W]          Sélecteur de fond d'écran animé"
@@ -12,7 +11,7 @@ categories=(
     "--------------------------------------------------------"
     "❌ [Super + Q]          Fermer la fenêtre active"
     "⛶  [Super + F]          Plein écran (Toggle)"
-    "🪟 [Super + Shift + Spc] Fenêtre flottante libre (Toggle)"
+    "🪟 [Super + Espace]     Fenêtre flottante libre (Toggle)"
     "📑 [Super + G]          Grouper des fenêtres en onglets"
     "↔️  [Super + Alt + H/L]  Changer d'onglet dans le groupe"
     "--------------------------------------------------------"

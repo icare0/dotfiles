@@ -8,7 +8,6 @@ local home = os.getenv("HOME")
 -- Launchers
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu)) -- Spotlight macOS style
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
@@ -62,8 +61,9 @@ hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(
 -- Keyboard layout
 hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))
 
--- Toggle window Center and rezise (Super + Shift + Space or Super + Alt + Space)
-hl.bind(mainMod .. " + SHIFT + Space", function()
+-- Toggle window Center and resize (Super + Space)
+hl.bind(mainMod .. " + Space", function()
+
 
     hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
 
