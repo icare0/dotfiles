@@ -24,8 +24,9 @@ browser    = "brave-browser"
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
-    hl.exec_cmd("swaync")
+    hl.exec_cmd("systemctl --user start tide-island.service 2>/dev/null || tide-island")
     hl.exec_cmd("hypridle")
+
     hl.exec_cmd("nm-applet")
     hl.exec_cmd("blueman-applet")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")

@@ -44,6 +44,13 @@ hl.layer_rule({
     ignore_alpha = 0.2,
 })
 
+hl.layer_rule({
+    match = { namespace = "tide-island" },
+    blur = true,
+    ignore_alpha = 0.15,
+})
+
+
 
 -- Opacity rule for your regular apps
 hl.window_rule({
@@ -84,3 +91,10 @@ hl.window_rule({
     match = { title = "^(Save File)$" },
     float = true,
 })
+
+hl.window_rule({
+    name = "float-tide-island-config",
+    match = { class = "^(tide-island-config|tide-island-app)$" },
+    float = true,
+})
+

@@ -6,8 +6,9 @@
     "spacing": 2,
 
     "modules-left": ["hyprland/workspaces", "cpu", "custom/gpu", "memory", "temperature"],
-    "modules-center": ["clock"],
-    "modules-right": ["mpris", "network", "bluetooth", "pulseaudio", "battery", "custom/notification", "custom/power"],
+    "modules-center": [],
+    "modules-right": ["mpris", "network", "bluetooth", "pulseaudio", "battery", "custom/power"],
+
 
     "hyprland/workspaces": {
         "disable-scroll": false,

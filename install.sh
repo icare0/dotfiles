@@ -258,6 +258,13 @@ if command -v systemctl >/dev/null 2>&1; then
         success "SDDM service enabled."
     fi
 
+    if command -v tide-island >/dev/null 2>&1; then
+        info "Enabling Tide Island service..."
+        systemctl --user enable --now tide-island.service 2>/dev/null || true
+        success "Tide Island service enabled."
+    fi
+
+
 else
     warning "systemctl was not found; skipping service setup."
 fi

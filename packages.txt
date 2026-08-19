@@ -12,11 +12,13 @@ waybar
 rofi
 wlogout
 quickshell
+tide-island
+cava
 xdg-desktop-portal-hyprland
 xorg-xwayland
-swaync
 network-manager-applet
 polkit-kde-agent
+
 
 # --------------------------------------------------
 # Wallpaper / screenshots
