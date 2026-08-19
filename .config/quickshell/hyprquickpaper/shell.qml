@@ -119,32 +119,36 @@ PanelWindow {
             // which would depend on width, i.e. a binding loop.
             readonly property real baseWidth: list.tileWidth
 
-            // --- Dock-style magnification: scale depends on on-screen position ---
-            // One binding instead of several chained ones - list.contentX already animates
-            // smoothly (SmoothedAnimation below), so this recomputes every frame during
-            // scroll anyway; no need for extra Behavior/NumberAnimation layered on top of
-            // it (that was two animations fighting over the same value, which is what was
-            // causing the sluggish feel).
-            property real scaleFactor: {
-                const centerX = x - list.contentX + baseWidth / 2
-                const frac = Math.min(1, Math.abs(centerX - list.viewportCenterX) / list.viewportCenterX)
-                const t = 1 - frac * frac * (3 - 2 * frac) // smoothstep falloff
-                return main.edgeScale + (main.zoomScale - main.edgeScale) * t
+            property real targetScale: {
+                const diff = Math.abs(index - list.selectedIndex)
+                if (diff === 0) return 0.95
+                if (diff === 1) return 0.65
+                if (diff === 2) return 0.45
+                return 0.32
             }
 
-            // This IS the delegate's real layout width, so as it grows, ListView pushes
-            // every following tile further along - real spacing, not an overlapping overlay.
-            // No Behavior here: it already tracks contentX's smooth animation 1:1, and tiles
-            // never overlap in this layout, so there's nothing to visually smooth over.
+            property real scaleFactor: targetScale
+
+            Behavior on scaleFactor {
+                NumberAnimation {
+                    duration: 220
+                    easing.type: Easing.OutBack
+                    easing.overshoot: 1.18
+                }
+            }
+
             width: baseWidth * scaleFactor
 
             Item {
                 id: content
                 anchors.centerIn: parent
                 width: parent.width
-                // Height scale uses the same factor but caps at 1.0 - the row is already
-                // full window height, so growing past that would just get clipped.
-                height: delegateItem.height * Math.min(1, delegateItem.scaleFactor)
+                height: delegateItem.height * delegateItem.scaleFactor
+                opacity: delegateItem.active ? 1.0 : 0.65
+
+                Behavior on opacity {
+                    NumberAnimation { duration: 180 }
+                }
 
                 Text {
                     id: alt
