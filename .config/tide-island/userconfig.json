@@ -1,0 +1,12 @@
+{
+  "islandAutoHideEnabled": true,
+  "islandAutoHideDelayMs": 3000,
+  "islandExclusiveZone": 0,
+  "islandWidth": 140,
+  "islandHeight": 38,
+  "islandTopMargin": 4,
+  "islandPositionX": 50,
+  "islandBackgroundOpacity": 100,
+  "dynamicIslandLeftSwipeItems": [],
+  "islandShowWorkspaceOnAutoHide": true
+}

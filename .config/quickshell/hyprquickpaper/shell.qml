@@ -9,11 +9,11 @@ PanelWindow {
 
     // ---- Easy-to-edit settings ----
     property int speed: 5000          // scroll animation speed
-    property int animDuration: 100    // ms for scroll animation
-    property real zoomScale: 0.8        // scale of the tile at screen center (peak)
+    property int animDuration: 150    // ms for scroll animation
+    property real zoomScale: 0.8      // scale of the tile at screen center (peak)
     property real edgeScale: 0.3      // scale of tiles at the screen edges (trough)
-    property real skewFactor: 0   // italic-style shear on tiles
-    property int baseSpacing: 8       // resting gap between tiles (grows automatically as tiles magnify)
+    property real skewFactor: 0       // italic-style shear on tiles
+    property int baseSpacing: 8       // resting gap between tiles
     // --------------------------------
 
     implicitHeight: 500
@@ -51,6 +51,17 @@ PanelWindow {
         showDirs: false
         nameFilters: ["*.png", "*.jpg", "*.jpeg"]
         sortField: FolderListModel.Name
+
+        property bool readyDone: false
+
+        onStatusChanged: {
+            if (status === FolderListModel.Ready && count > 0 && !readyDone) {
+                readyDone = true
+                const middle = Math.floor(count / 2)
+                list.selectedIndex = middle
+                list.centerOnIndex(middle)
+            }
+        }
     }
 
     ListView {
@@ -62,38 +73,37 @@ PanelWindow {
         orientation: ListView.Horizontal
         spacing: main.baseSpacing
         clip: true
-        cacheBuffer: 400
+        cacheBuffer: 600
 
         property int selectedIndex: 0
-        property real tileWidth: width / configs.number_of_pictures - 10
+        property real tileWidth: (configs.number_of_pictures && configs.number_of_pictures > 0) ? (width / configs.number_of_pictures - 10) : 200
         property real viewportCenterX: width / 2
 
         function clampIndex(i) {
-            return Math.max(0, Math.min(i, count - 1))
+            return Math.max(0, Math.min(i, folderModel.count - 1))
         }
 
         function clampX(x) {
-            return Math.max(0, Math.min(x, contentWidth - width))
+            return Math.max(0, Math.min(x, Math.max(0, contentWidth - width)))
+        }
+
+        function centerOnIndex(i) {
+            const step = tileWidth + spacing
+            const targetX = (i * step) - (width / 2) + (tileWidth / 2)
+            contentX = clampX(targetX)
         }
 
         function activateCurrent() {
+            if (folderModel.count <= 0) return
             const path = folderModel.get(selectedIndex, "filePath")
             Quickshell.execDetached(["bash", Quickshell.shellPath("commands.sh"), path])
             Qt.quit()
         }
 
         function ensureVisibleAnimated(i) {
-            const step = tileWidth + spacing
-            const itemStart = i * step
-            const itemEnd = itemStart + tileWidth + 20
-
-            if (itemStart < contentX)
-                contentX = clampX(itemStart)
-            else if (itemEnd > contentX + width)
-                contentX = clampX(itemStart - (width - step))
+            centerOnIndex(i)
         }
 
-        // Moves the selection by `delta` tiles, animating at `speedMultiplier`x speed
         function moveSelection(delta, speedMultiplier) {
             anim.v = main.speed * speedMultiplier
             selectedIndex = clampIndex(selectedIndex + delta)
@@ -112,11 +122,6 @@ PanelWindow {
             id: delegateItem
             height: 500
             property bool active: index === list.selectedIndex
-
-            // Base (unscaled) slot width. Used to work out where this tile currently sits
-            // on screen for the magnification curve below. Deliberately NOT derived from
-            // this item's own (dynamic) width - if it were, width would depend on position
-            // which would depend on width, i.e. a binding loop.
             readonly property real baseWidth: list.tileWidth
 
             property real targetScale: {
@@ -164,17 +169,12 @@ PanelWindow {
                     anchors.fill: parent
                     opacity: 0.8
                     fillMode: Image.PreserveAspectCrop
-
                     asynchronous: true
                     cache: false
                     smooth: true
 
                     source: "file://" + (configs.cache_path ? configs.cache_path.replace("/home/rp34", Quickshell.env("HOME")).replace("$HOME", Quickshell.env("HOME")) : (Quickshell.env("HOME") + "/.cache/quickshell/thumbs/")) + fileName
 
-                    // Decode once at the largest size this image will ever be shown at
-                    // (the active/zoomed size), rather than tracking the animating
-                    // width/height - that would re-decode on every animation frame
-                    // and cause a visible blink.
                     sourceSize.width: delegateItem.baseWidth * main.zoomScale
                     sourceSize.height: delegateItem.height
 
@@ -205,30 +205,32 @@ PanelWindow {
                     anchors.fill: parent
                     visible: delegateItem.active
                     color: "transparent"
-
                     border.width: 2
                     border.color: configs.border_color
-
                     transform: Shear { xFactor: main.skewFactor }
                 }
             }
 
             MouseArea {
                 anchors.fill: parent
-                hoverEnabled: true
-
-                onEntered: list.selectedIndex = index
-                onClicked: list.activateCurrent()
+                onClicked: {
+                    list.selectedIndex = index
+                    list.activateCurrent()
+                }
 
                 onWheel: function(wheel) {
-                    list.flick(-wheel.angleDelta.y * 8, 0)
+                    if (wheel.angleDelta.y < 0) {
+                        list.moveSelection(1, 1)
+                    } else if (wheel.angleDelta.y > 0) {
+                        list.moveSelection(-1, 1)
+                    }
                     wheel.accepted = true
                 }
             }
         }
 
         Keys.onPressed: function(event) {
-            const big = configs.number_of_pictures
+            const big = (configs.number_of_pictures && configs.number_of_pictures > 0) ? configs.number_of_pictures : 5
 
             switch (event.key) {
             case Qt.Key_Right:

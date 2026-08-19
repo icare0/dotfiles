@@ -14,20 +14,18 @@ window#waybar {
 
 /* LEFT */
 .modules-left {
-    background-color: rgba(15, 15, 20, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    margin: 4px 0 4px 6px;
-    padding: 0 4px;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* CENTER */
 .modules-center {
-    background-color: rgba(15, 15, 20, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    margin: 4px 0;
-    padding: 0 6px;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* RIGHT */
@@ -73,32 +71,6 @@ window#waybar {
 #custom-power:hover {
     background-color: rgba(255, 255, 255, 0.08);
     color: #ffffff;
-}
-
-/* Workspaces */
-#workspaces button {
-    padding: 0 6px;
-    color: #565f89;
-    background-color: transparent;
-    border-radius: 8px;
-    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-#workspaces button.focused,
-#workspaces button.active {
-    color: #7aa2f7;
-    background-color: rgba(122, 162, 247, 0.15);
-    font-weight: bold;
-}
-
-#workspaces button.urgent {
-    color: #f7768e;
-    background-color: rgba(247, 118, 142, 0.2);
-}
-
-#workspaces button:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.12);
 }
 
 /* Network & Battery */

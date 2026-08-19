@@ -23,7 +23,6 @@ browser    = "brave-browser"
 ---- AUTOSTART ----
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("waybar")
     hl.exec_cmd("systemctl --user start tide-island.service 2>/dev/null || tide-island")
     hl.exec_cmd("hypridle")
 

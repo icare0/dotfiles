@@ -43,10 +43,13 @@ Wallpapers: https://wallhaven.cc/user/43pr
 | Keybind | Action |
 | --- | --- |
 | `Super + T` | Open terminal (Kitty) |
-| `Super + D` | Open application launcher (Rofi) |
+| `Super + P` | Open application launcher (Tide Island) |
 | `Super + E` | Open file manager (Thunar) |
 | `Super + B` | Open browser (Brave / Firefox) |
-| `Super + N` | Toggle Notification Center (SwayNC) |
+| `Super + A` | Toggle Workspace Overview (Tide Island) |
+| `Super + C` | Toggle Control Center (Tide Island) |
+| `Super + M` | Toggle Music Player (Tide Island) |
+| `Super + N` | Toggle Notification Center (Tide Island) |
 | `Super + \`` | Toggle Scratchpad Terminal |
 | `Super + W` | Open wallpaper selector (Quickshell) |
 | `Super + O` | Switch opacity dynamically |
@@ -60,7 +63,6 @@ Wallpapers: https://wallhaven.cc/user/43pr
 | `Super + Alt + H / L` | Navigate previous / next tab in group |
 | `Super + Tab` | Lock screen (Hyprlock) |
 | `Super + Esc` | Open logout menu (Wlogout) |
-| `Super + SHIFT + W` | Toggle Waybar visibility |
 
 ---
 
