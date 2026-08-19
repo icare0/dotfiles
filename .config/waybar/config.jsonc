@@ -5,9 +5,10 @@
     "height": 24,
     "spacing": 2,
 
-    "modules-left": ["hyprland/workspaces", "cpu", "custom/gpu", "memory", "temperature"],
+    "modules-left": ["hyprland/workspaces"],
     "modules-center": [],
-    "modules-right": ["mpris", "network", "bluetooth", "pulseaudio", "battery", "custom/power"],
+    "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "custom/power"],
+
 
 
     "hyprland/workspaces": {
