@@ -24,8 +24,8 @@ categories=(
     "📸 [Super + Suppr]      Capture tout l'écran"
     "📋 [Super + V]          Historique du Presse-papiers"
     "🎛️  [Super + N]          Centre de contrôle & Notifications"
-    "🌙 [Super + Shift + N]  Mode Nuit anti-lumière bleue (Toggle)"
     "🪄 [Super + O]          Régler l'opacité / transparence"
+
     "🛸 [Super + \`]          Terminal tiroir secret (Scratchpad)"
     "🔒 [Super + Tab]        Verrouiller l'écran (Hyprlock + Musique)"
     "⚡ [Super + Échap]      Menu d'extinction (Wlogout)"

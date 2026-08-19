@@ -11,7 +11,7 @@ hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
-hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/nightshift.sh"))
+
 
 -- Emoji Picker (Super + . and Super + ;)
 hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/emoji-picker.sh"))

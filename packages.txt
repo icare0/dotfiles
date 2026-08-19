@@ -84,7 +84,7 @@ imagemagick
 nvtop
 xdg-user-dirs
 wtype
-hyprsunset
+
 
 
 
