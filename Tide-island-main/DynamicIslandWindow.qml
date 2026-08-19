@@ -1809,8 +1809,8 @@ PanelWindow {
 
             Behavior on displayedWidth  {
                 NumberAnimation {
-                    duration: capsuleMouseArea.sideSwipeInteractive ? 0 : mainCapsule.morphDuration
-                    easing.type: Easing.OutQuint
+                    duration: 220
+                    easing.type: Easing.OutCubic
                 }
             }
             Behavior on height {
@@ -1864,6 +1864,40 @@ PanelWindow {
                 property bool sideSwipeInteractive: false
                 property bool suppressNextClick: false
                 property bool preparedOverviewOnPress: false
+                property bool wheelCooldown: false
+
+                Timer {
+                    id: wheelCooldownTimer
+                    interval: 260
+                    repeat: false
+                    onTriggered: capsuleMouseArea.wheelCooldown = false
+                }
+
+                onWheel: (wheel) => {
+                    if (capsuleMouseArea.wheelCooldown) {
+                        wheel.accepted = true;
+                        return;
+                    }
+                    const dx = wheel.pixelDelta.x !== 0 ? wheel.pixelDelta.x : wheel.angleDelta.x;
+                    const dy = wheel.pixelDelta.y !== 0 ? wheel.pixelDelta.y : wheel.angleDelta.y;
+                    const eff = Math.abs(dx) > Math.abs(dy) ? dx : dy;
+                    if (Math.abs(eff) >= 8) {
+                        capsuleMouseArea.wheelCooldown = true;
+                        wheelCooldownTimer.restart();
+                        if (eff < 0) {
+                            if (islandContainer.islandState === "normal")
+                                islandContainer.showCustomCapsule();
+                            else if (islandContainer.islandState === "lyrics")
+                                islandContainer.showTimeCapsule();
+                        } else {
+                            if (islandContainer.islandState === "normal")
+                                islandContainer.showLyricsCapsule();
+                            else if (islandContainer.islandState === "custom")
+                                islandContainer.showTimeCapsule();
+                        }
+                    }
+                    wheel.accepted = true;
+                }
 
                 Timer {
                     id: swipeSuppressReset
