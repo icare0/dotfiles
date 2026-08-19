@@ -34,6 +34,9 @@ hl.on("hyprland.start", function()
 
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("sleep 1 && awww img " .. os.getenv("HOME") .. "/Pictures/Wallpapers/w4.png")
+
+    -- Enable 3-finger touchpad workspace swipe
+    hl.exec_cmd("hyprctl keyword gestures:workspace_swipe true && hyprctl keyword gestures:workspace_swipe_fingers 3 && hyprctl keyword gestures:workspace_swipe_distance 250")
 end)
 
 ---- INPUT ----
