@@ -32,6 +32,11 @@ hl.bind(mainMod .. " + ALT + G", hl.dsp.exec_cmd("hyprctl dispatch lockactivegro
 
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/opacity.sh"))
 
+-- Cheatsheet / Help Menu (Super + / and Super + F1 and Super + comma)
+hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/cheatsheet.sh"))
+hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/cheatsheet.sh"))
+hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/cheatsheet.sh"))
+
 
 -- Toggle waybar
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("sh -c 'pgrep -x waybar >/dev/null && pkill waybar || nohup waybar >/dev/null 2>&1 &'"))

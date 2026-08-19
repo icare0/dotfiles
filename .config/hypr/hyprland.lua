@@ -90,19 +90,19 @@ hl.config({
     },
 })
 
--- Animation curves
-hl.curve("fluid",       { type = "bezier", points = { {0.25, 1.0}, {0.5, 1.0} } })
-hl.curve("easeOut",     { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.0} } })
-hl.curve("easeOutBack", { type = "bezier", points = { {0.34, 1.3}, {0.64, 1.0} } })
-hl.curve("easeOutExpo", { type = "bezier", points = { {0.16, 1.0}, {0.3, 1.0} } })
+-- Animation curves (Organic Spring & Elastic Physics)
+hl.curve("spring",    { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.05} } })
+hl.curve("iosSlide",  { type = "bezier", points = { {0.25, 1.0}, {0.5, 1.0} } })
+hl.curve("softDecel", { type = "bezier", points = { {0.16, 1.0}, {0.3, 1.0} } })
 
--- Smooth Animations
-hl.animation({ leaf = "windows",          enabled = true, speed = 6, bezier = "fluid",      style = "popin 80%" })
-hl.animation({ leaf = "windowsOut",       enabled = true, speed = 5, bezier = "fluid",      style = "popin 80%" })
+-- Smooth Organic Animations
+hl.animation({ leaf = "windows",          enabled = true, speed = 5, bezier = "spring",    style = "popin 85%" })
+hl.animation({ leaf = "windowsOut",       enabled = true, speed = 4, bezier = "softDecel", style = "popin 85%" })
 hl.animation({ leaf = "border",           enabled = true, speed = 4, bezier = "default" })
-hl.animation({ leaf = "fade",             enabled = true, speed = 4, bezier = "default" })
-hl.animation({ leaf = "workspaces",       enabled = true, speed = 5, bezier = "fluid",      style = "slide" })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5, bezier = "fluid",      style = "slidevert" })
+hl.animation({ leaf = "fade",             enabled = true, speed = 3, bezier = "softDecel" })
+hl.animation({ leaf = "workspaces",       enabled = true, speed = 5, bezier = "iosSlide",  style = "slide" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5, bezier = "iosSlide",  style = "slidevert" })
+
 
 
 -- LAYOUT

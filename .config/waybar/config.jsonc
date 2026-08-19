@@ -60,7 +60,8 @@
 
     "clock": {
         "format": "{:%H:%M}",
-        "tooltip-format": "<tt>{:%a %d %b %Y}</tt>"
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click": "swaync-client -t -sw"
     },
 
     "mpris": {
@@ -79,7 +80,8 @@
         "tooltip-format": "{ifname} via {gwaddr} 󰊗",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) 󰤨\nIP: {ipaddr}",
         "tooltip-format-ethernet": "{ifname} 󰈀\nIP: {ipaddr}",
-        "on-click": "nm-connection-editor"
+        "on-click": "$HOME/.config/hypr/scripts/wifi-menu.sh",
+        "on-click-right": "nm-connection-editor"
     },
 
     "bluetooth": {
@@ -93,7 +95,8 @@
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-        "on-click": "blueman-manager"
+        "on-click": "blueman-manager",
+        "on-click-right": "rfkill toggle bluetooth"
     },
 
     "pulseaudio": {
@@ -117,7 +120,8 @@
         "format-charging": "󱐋 {capacity}%",
         "format-plugged": " {capacity}%",
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "tooltip-format": "{timeTo}, {capacity}%"
+        "tooltip-format": "{timeTo}, {capacity}% (Clic pour changer le profil d'énergie)",
+        "on-click": "$HOME/.config/hypr/scripts/power-profile.sh"
     },
 
     "custom/notification": {
